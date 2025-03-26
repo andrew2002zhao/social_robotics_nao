@@ -1,0 +1,4 @@
+#WEBOTS_MOTION,V1.0,HeadPitch,HeadYaw,RShoulderPitch,RShoulderRoll,RElbowYaw,RElbowRoll,RWristYaw,LShoulderPitch,LShoulderRoll,LElbowYaw,LElbowRoll,LWristYaw
+00:00:00,pose1,0.0,0.0,1.4,0.0,0.0,0.0,0.0,1.4,0.0,0.0,0.0,0.0
+00:00:20,pose2,0.0,-1.57,2.0,0.31,0.0,,0.0,0.0,2.0,-0.31,0.0,0.0,0.0
+00:00:40,pose3,0.0,-1.57,2.0,0.31,1.5,0.3,0.0,2.0,-0.31,-1.5,-0.3,0.0

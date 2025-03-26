@@ -58,7 +58,7 @@ static WbDeviceTag RShoulderPitch;
 static WbDeviceTag LShoulderPitch;
 
 // motion file handles
-static WbMotionRef hands_behind_back, hand_wave;
+static WbMotionRef hands_behind_back_looking_at_painting, hands_on_hips_looking_at_painting, hands_on_hips_looking_at_person, hands_behind_back_looking_at_person, neutral_looking_at_person, neutral_looking_at_painting, neutral_looking_at_person;
 static WbMotionRef currently_playing = NULL;
 
 static double maxPhalanxMotorPosition[PHALANX_MAX];
@@ -144,8 +144,12 @@ static void find_and_enable_devices() {
 
 // load motion files
 static void load_motion_files() {
-  hands_behind_back = wbu_motion_new("../../motions/HandsBehindBack.motion");
-  hand_wave = wbu_motion_new("../../motions/HandWave.motion");
+  hands_behind_back_looking_at_painting = wbu_motion_new("../../motions/HandsBehindBackLookingAtPainting.motion");
+  hands_on_hips_looking_at_painting = wbu_motion_new("../../motions/HandsOnHipsLookingAtPainting.motion");
+  hands_on_hips_looking_at_person = wbu_motion_new("../../motions/HandsOnHipsLookingAtPerson.motion");
+  hands_behind_back_looking_at_person = wbu_motion_new("../../motions/HandsBehindBackLookingAtPerson.motion");
+  neutral_looking_at_person = wbu_motion_new("../../motions/NeutralLookingAtPerson.motion");
+  neutral_looking_at_painting = wbu_motion_new("../../motions/NeutralLookingAtPainting.motion");
 }
 
 static void start_motion(WbMotionRef motion) {
@@ -366,7 +370,7 @@ int main() {
 
   // walk forwards
   // wbu_motion_set_loop(hand_wave, true);
-  wbu_motion_play(hands_behind_back);
+  wbu_motion_play(neutral_looking_at_painting);
   while true {
     simulation_step();
   } 
