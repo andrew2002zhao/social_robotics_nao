@@ -316,28 +316,6 @@ static void set_hands_angle(double angle) {
   }
 }
 
-static void print_help() {
-  printf("----------nao_demo----------\n");
-  printf("Select the robot and use the keyboard to control it:\n");
-  printf("(The 3D window need to be focused)\n");
-  printf("[Up][Down]: move a few steps forward/backwards\n");
-  printf("[<-][->]: make a few side steps left/right\n");
-  printf("[Shift] + [<-][->]: turn left/right\n");
-  printf("[U]: print ultrasound sensors\n");
-  printf("[A]: print accelerometer\n");
-  printf("[G]: print gyro\n");
-  printf("[S]: print gps\n");
-  printf("[I]: print inertial unit (roll/pitch/yaw)\n");
-  printf("[F]: print foot sensors\n");
-  printf("[B]: print foot bumpers\n");
-  printf("[Home][End]: print scaled top/bottom camera image\n");
-  printf("[PageUp][PageDown]: open/close hands\n");
-  printf("[7][8][9]: change all leds RGB color\n");
-  printf("[0]: turn all leds off\n");
-  printf("[T]: perform a tai chi move\n");
-  printf("[W]: wipe its forehead\n");
-  printf("[H]: print this help message\n");
-}
 
 static void terminate() {
   // add you cleanup code here: write results, close files, free memory, etc.
@@ -370,11 +348,48 @@ int main() {
 
   // walk forwards
   // wbu_motion_set_loop(hand_wave, true);
-  wbu_motion_play(neutral_looking_at_painting);
-  while true {
-    simulation_step();
-  } 
-  // currently_playing = hand_wave;
+
+  printf("WELCOME TO THE NAO EXPERIMENT\n");
+  
+  bool cooperative = true;
+
+  if(cooperative) {
+    wbu_motion_play(neutral_looking_at_person);
+  } else {
+    wbu_motion_play(neutral_looking_at_painting);
+  }
+  int time_step = (int)wb_robot_get_basic_time_step();
+  //get a new seed
+  srand(time(0));
+  while (wb_robot_step(time_step) != -1) {
+    double current_time = wb_robot_get_time();
+    if(current_time > 60) {
+      if(cooperative) {
+        if(rand() % 2 == 0) {
+          wbu_motion_play(hands_behind_back_looking_at_person);
+        }
+        else{
+          wbu_motion_play(hands_on_hips_looking_at_person);
+        }
+      
+      } else {
+        if(rand() % 2 == 0) {
+          wbu_motion_play(hands_behind_back_looking_at_painting);
+        }
+        else{
+          wbu_motion_play(hands_on_hips_looking_at_painting);
+        }
+      }
+
+      break;
+    }
+    
+  }
+
+  while(wb_robot_step(time_step) != -1) {
+
+  }
+ 
 
   return 0;
 }
